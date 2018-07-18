@@ -1,2 +1,2 @@
-# my-eth-interface
-Interface for ethereum wallets
+# My Ethereum Interface
+Interface for ethereum network
