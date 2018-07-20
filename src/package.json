@@ -4,12 +4,16 @@
   "private": true,
   "dependencies": {
     "react": "^16.4.1",
+    "react-bootstrap": "^0.32.1",
     "react-dom": "^16.4.1",
     "react-redux": "^5.0.7",
     "react-scripts": "1.1.4",
     "redux": "^4.0.0",
     "redux-form": "^7.4.2",
-    "redux-promise": "^0.6.0"
+    "redux-promise": "^0.6.0",
+    "sweetalert": "^2.1.0",
+    "truffle-privatekey-provider": "^0.1.0",
+    "web3": "^1.0.0-beta.34"
   },
   "scripts": {
     "start": "react-scripts start",
