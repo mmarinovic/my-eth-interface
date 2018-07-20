@@ -15,14 +15,17 @@ class NewTransaction extends Component {
 
     render(){
         const { handleSubmit } = this.props
-
+        console.log(this.props.currentAccount);
         return (
-            <form onSubmit={handleSubmit(this.generateTransaction)}>
-                <Field name="toAddress" label="To Address" component={this.renderFieldComponent}/>
-                <Field name="amount" label="Amount" component={this.renderFieldComponent}/>
-                <Field name="gasLimit" label="Gas Limit" component={this.renderFieldComponent}/>
-                <button type="submit">Generate transaction</button>
-            </form>
+            <div>
+                <h1>Send Ether and Token</h1>
+                <form onSubmit={handleSubmit(this.generateTransaction)}>
+                    <Field name="toAddress" label="To Address" component={this.renderFieldComponent}/>
+                    <Field name="amount" label="Amount" component={this.renderFieldComponent}/>
+                    <Field name="gasLimit" label="Gas Limit" component={this.renderFieldComponent}/>
+                    <button type="submit" className="btn btn-primary">Generate transaction</button>
+                </form>
+            </div>
         );
     }
 
@@ -31,16 +34,16 @@ class NewTransaction extends Component {
     }
 }
 
-function validateForm(values){
+function asyncValidate(values){
     const errors = {};
     return errors;
 }
 
-function mapStateToProps({web3}){
-    return{web3};
+function mapStateToProps({web3, currentAccount}){
+    return { web3, currentAccount };
 }
 
 export default reduxForm({
-    validate: validateForm,
-    form: 'NewTransaction'
+    form: 'NewTransaction',
+    asyncValidate
 })(connect(mapStateToProps)(NewTransaction));

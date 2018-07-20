@@ -1,7 +1,7 @@
 import Web3 from 'web3';
 import PrivateKeyProvider from 'truffle-privatekey-provider';
 
-import { UNLOCK_WITH_PRIVATE_KEY, UNLOCK_WITH_META_MASK } from '../actions/unlockAccountAction';
+import { UNLOCK_WITH_PRIVATE_KEY, UNLOCK_WITH_META_MASK } from '../actions/accountActions';
 
 const INFURA_PROVIDER = 'https://rinkeby.infura.io/';
 

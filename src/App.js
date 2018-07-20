@@ -8,7 +8,6 @@ import NewTransaction from './containers/NewTransaction';
 class App extends Component {
 
   render() {
-
     const unlockAccountPart = <UnlockAccount />;
     const interfacePart = (<div>
       <div className="col-md-5">

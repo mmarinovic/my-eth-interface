@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import swal from 'sweetalert';
 import { Modal } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { unlockAccountWithPrivateKey, unlockAccountWithMetaMask } from '../actions/unlockAccountAction';
+import { unlockAccountWithPrivateKey, unlockAccountWithMetaMask } from '../actions/accountActions';
 
 class UnlockAccount extends Component {
 

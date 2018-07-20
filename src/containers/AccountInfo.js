@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { setCurrentAccount } from '../actions/accountActions';
 
 class AccountInfo extends Component {
 
@@ -13,6 +14,7 @@ class AccountInfo extends Component {
         .then(accounts => {
             const selectedAddress = accounts[0];
             this.setState({ account: selectedAddress });
+            this.props.setCurrentAccount(selectedAddress);
             return selectedAddress;
         })
         .then(selectedAddress => {
@@ -37,4 +39,4 @@ function mapStateToProps({ web3 }){
     return { web3} ;
 }
 
-export default connect(mapStateToProps)(AccountInfo);
+export default connect(mapStateToProps, { setCurrentAccount })(AccountInfo);
