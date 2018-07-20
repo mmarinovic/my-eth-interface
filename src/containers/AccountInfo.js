@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setCurrentAccount } from '../actions/accountActions';
 
 class AccountInfo extends Component {
 
@@ -9,32 +8,24 @@ class AccountInfo extends Component {
     }
 
     componentDidMount(){
-        this.props.web3.eth.getAccounts()
-        .then(accounts => {
-            const selectedAddress = accounts[0];
-            this.props.setCurrentAccount(selectedAddress);
-            return selectedAddress;
-        })
-        .then(selectedAddress => {
-            this.props.web3.eth.getBalance(selectedAddress)
+        this.props.web3.eth.getBalance(this.props.accounts.selected)
             .then(balance => {
                 this.setState({ ethBalance: this.props.web3.utils.fromWei(balance) });
             });
-        });
     }
 
     render(){
         return (
             <div>
-                <div>Account address: {this.props.currentAccount}</div>
+                <div>Account address: {this.props.accounts.selected}</div>
                 <div>ETH balance: {this.state.ethBalance} ETH</div>
             </div>
         );
     }
 }
 
-function mapStateToProps({ web3, currentAccount }){
-    return { web3, currentAccount };
+function mapStateToProps({ web3, accounts }){
+    return { web3, accounts };
 }
 
-export default connect(mapStateToProps, { setCurrentAccount })(AccountInfo);
+export default connect(mapStateToProps)(AccountInfo);

@@ -23,7 +23,7 @@ class App extends Component {
         <header className="App-header">
           <h1 className="App-title">My Ether Interface</h1>
         </header>
-        {this.props.web3 
+        {this.props.web3 && this.props.accounts && this.props.accounts.selected
           ? interfacePart
           : unlockAccountPart
         }
@@ -32,8 +32,8 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({web3}){
-  return { web3 };
+function mapStateToProps({web3, accounts}){
+  return { web3, accounts};
 }
 
 export default connect(mapStateToProps, null)(App);

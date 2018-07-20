@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import swal from 'sweetalert';
 import { connect } from 'react-redux';
-import { unlockAccountWithPrivateKey, unlockAccountWithMetaMask } from '../actions/accountActions';
+import { unlockAccountWithPrivateKey, unlockAccountWithMetaMask, selectAccount } from '../actions/accountActions';
 import MyModal from '../components/MyModal';
 
 class UnlockAccount extends Component {
@@ -12,16 +12,28 @@ class UnlockAccount extends Component {
     }
 
     render(){
+        if(this.props.accounts.all){
+            return (
+                <div>
+                    <h3>Select unlocked account</h3>
+                    <ul className="list-group col-md-3">
+                        {this.props.accounts.all.map(address => (
+                            <li className="list-group-item" key={address} onClick={() => this.selectAccount(address)}>{address}</li>
+                        ))}
+                    </ul>
+                </div>
+            )
+        }
+
         return (
             <div>
-                <h3>Unlock your account to get started </h3>
-                <div>
-                    <button className="btn btn-primary" onClick={() => this.setState({ isPrivateKeyModalVisible: true })}>Private key</button>
-                    <button className="btn btn-primary" onClick={this.unlockWithMetaMask}>MetaMask</button>
-                </div>
+                <h3>Unlock account to get started</h3>
+
+                <button className="btn btn-primary" onClick={() => this.setState({ isPrivateKeyModalVisible: true })}>Private key</button>
+                <button className="btn btn-primary" onClick={this.unlockWithMetaMask}>MetaMask</button>
                 {this.renderPrivateKeyModal()}
-             </div>
-        );
+            </div>
+        )
     }
 
     renderPrivateKeyModal = () => {
@@ -60,6 +72,14 @@ class UnlockAccount extends Component {
         
         this.props.unlockAccountWithMetaMask();
     }
+
+    selectAccount = (address) => {
+        this.props.selectAccount(address);
+    }
 }
 
-export default connect(null, { unlockAccountWithPrivateKey, unlockAccountWithMetaMask })(UnlockAccount);
+function mapStateToProps({web3, accounts}){
+    return {web3, accounts};
+}
+
+export default connect(mapStateToProps, { unlockAccountWithPrivateKey, unlockAccountWithMetaMask, selectAccount })(UnlockAccount);

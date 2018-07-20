@@ -10,7 +10,7 @@ class NewTransaction extends Component {
                 <label>{field.label}</label>
                 <input className="form-control" type="text" {...field.input} />
                 <div className="text-danger">
-                    {field.meta.touched? field.meta.error : ''}
+                    {field.meta.touched ? field.meta.error : ''}
                 </div>
             </div>
         )
@@ -54,8 +54,8 @@ function validate(values){
     return errors;
 }
 
-function mapStateToProps({web3, currentAccount}){
-    return { web3, currentAccount };
+function mapStateToProps({web3, accounts}){
+    return { web3, accounts };
 }
 
 export default reduxForm({
