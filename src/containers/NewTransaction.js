@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
-import { connect, sub } from 'react-redux';
+import { connect } from 'react-redux';
 
 class NewTransaction extends Component {
 
-    renderFieldComponent = (field) => {
+    renderTextFieldComponent = (field) => {
         return (
             <div className="form-group">
                 <label>{field.label}</label>
                 <input className="form-control" type="text" {...field.input} />
+                <div className="text-danger">
+                    {field.meta.touched? field.meta.error : ''}
+                </div>
             </div>
         )
     }
@@ -19,9 +22,9 @@ class NewTransaction extends Component {
             <div>
                 <h1>Send Ether and Token</h1>
                 <form onSubmit={handleSubmit(this.generateTransaction)}>
-                    <Field name="toAddress" label="To Address" component={this.renderFieldComponent}/>
-                    <Field name="amount" label="Amount" component={this.renderFieldComponent}/>
-                    <Field name="gasLimit" label="Gas Limit" component={this.renderFieldComponent}/>
+                    <Field name="toAddress" label="To Address" component={this.renderTextFieldComponent}/>
+                    <Field name="amount" label="Amount" component={this.renderTextFieldComponent}/>
+                    <Field name="gasLimit" label="Gas Limit" component={this.renderTextFieldComponent}/>
                     <button type="submit" className="btn btn-primary">Generate transaction</button>
                 </form>
             </div>
@@ -35,6 +38,19 @@ class NewTransaction extends Component {
 
 function validate(values){
     const errors = {};
+
+    if(!values.toAddress){
+        errors.toAddress = 'Address is required';
+    }
+
+    if(!values.amount){
+        errors.amount = 'Amount should be greater than zero';
+    }
+
+    if(!values.gasLimit){
+        errors.gasLimit = 'Gas limit should be greater than zero';
+    }
+
     return errors;
 }
 

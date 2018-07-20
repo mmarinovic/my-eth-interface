@@ -5,7 +5,6 @@ import { setCurrentAccount } from '../actions/accountActions';
 class AccountInfo extends Component {
 
     state = {
-        account: '',
         ethBalance: ''
     }
 
@@ -13,7 +12,6 @@ class AccountInfo extends Component {
         this.props.web3.eth.getAccounts()
         .then(accounts => {
             const selectedAddress = accounts[0];
-            this.setState({ account: selectedAddress });
             this.props.setCurrentAccount(selectedAddress);
             return selectedAddress;
         })
@@ -28,15 +26,15 @@ class AccountInfo extends Component {
     render(){
         return (
             <div>
-                <div>Account address: {this.state.account}</div>
+                <div>Account address: {this.props.currentAccount}</div>
                 <div>ETH balance: {this.state.ethBalance} ETH</div>
             </div>
         );
     }
 }
 
-function mapStateToProps({ web3 }){
-    return { web3} ;
+function mapStateToProps({ web3, currentAccount }){
+    return { web3, currentAccount };
 }
 
 export default connect(mapStateToProps, { setCurrentAccount })(AccountInfo);

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import swal from 'sweetalert';
-import { Modal } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { unlockAccountWithPrivateKey, unlockAccountWithMetaMask } from '../actions/accountActions';
+import MyModal from '../components/MyModal';
 
 class UnlockAccount extends Component {
 
@@ -25,33 +25,32 @@ class UnlockAccount extends Component {
     }
 
     renderPrivateKeyModal = () => {
-        return (
-            <div className="static-modal">
-                <Modal show={this.state.isPrivateKeyModalVisible}>
-                    <Modal.Header>
-                        <Modal.Title>Enter your private key to unlock wallet</Modal.Title>
-                    </Modal.Header>
 
-                    <Modal.Body>
-                        <input className="form-control" type="text" placeholder="Your Ethereum private key" onChange={(e) => this.setState({ privateKey: e.target.value })}/>
-                    </Modal.Body>
-
-                    <Modal.Footer>
-                        <button className="btn btn-danger" onClick={() => this.setState({ isPrivateKeyModalVisible: false })}>Close</button>
-                        <button className="btn btn-primary" onClick={this.unlockWithPrivateKey}>Unlock</button>
-                    </Modal.Footer>
-                </Modal>
-            </div>
-        )
-    }
-
-    unlockWithPrivateKey = () => {
-        if(!this.state.privateKey){
-            return swal("Warning!", "Private key not valid", "warning");
+        const unlockWithPrivateKey = () => {
+            if(!this.state.privateKey){
+                return swal("Warning!", "Private key not valid", "warning");
+            }
+    
+            this.setState({ isPrivateKeyModalVisible: false });
+            this.props.unlockAccountWithPrivateKey(this.state.privateKey);
         }
 
-        this.setState({ isPrivateKeyModalVisible: false });
-        this.props.unlockAccountWithPrivateKey(this.state.privateKey);
+        const modalBody = <input className="form-control" type="text" placeholder="Your Ethereum private key" onChange={(e) => this.setState({ privateKey: e.target.value })}/>;
+        const modalFooter = (
+            <div>
+                <button className="btn btn-danger" onClick={() => this.setState({ isPrivateKeyModalVisible: false })}>Close</button>
+                <button className="btn btn-primary" onClick={unlockWithPrivateKey}>Unlock</button>
+            </div>
+        );
+
+        return (
+            <MyModal
+            show={this.state.isPrivateKeyModalVisible}
+            title="Enter your private key to unlock wallet"
+            body={modalBody}
+            footer={modalFooter}
+            />
+        )
     }
 
     unlockWithMetaMask = () => {
