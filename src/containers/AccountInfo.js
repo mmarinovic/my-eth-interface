@@ -26,8 +26,8 @@ class AccountInfo extends Component {
     render(){
         return (
             <div>
-                <div>Account: {this.state.account}</div>
-                <div>ETH balance: {this.state.ethBalance}</div>
+                <div>Account address: {this.state.account}</div>
+                <div>ETH balance: {this.state.ethBalance} ETH</div>
             </div>
         );
     }
