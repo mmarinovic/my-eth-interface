@@ -15,7 +15,6 @@ class NewTransaction extends Component {
 
     render(){
         const { handleSubmit } = this.props
-        console.log(this.props.currentAccount);
         return (
             <div>
                 <h1>Send Ether and Token</h1>
@@ -34,7 +33,7 @@ class NewTransaction extends Component {
     }
 }
 
-function asyncValidate(values){
+function validate(values){
     const errors = {};
     return errors;
 }
@@ -45,5 +44,5 @@ function mapStateToProps({web3, currentAccount}){
 
 export default reduxForm({
     form: 'NewTransaction',
-    asyncValidate
+    validate
 })(connect(mapStateToProps)(NewTransaction));
