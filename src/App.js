@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import UnlockAccount from './containers/UnlockAccount';
 import AccountInfo from './containers/AccountInfo';
 import NewTransaction from './containers/NewTransaction';
+import TokenList from './containers/TokenList';
 
 class App extends Component {
 
@@ -15,6 +16,7 @@ class App extends Component {
       </div>
       <div className="col-md-2">
         <AccountInfo />
+        <TokenList />
       </div>
     </div>);
 

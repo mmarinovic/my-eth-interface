@@ -16,11 +16,15 @@ class NewTransaction extends Component {
         )
     }
 
+    renderSelectFieldComponent = (field, selectList) => {
+
+    }
+
     render(){
         const { handleSubmit } = this.props
         return (
             <div>
-                <h1>Send Ether and Token</h1>
+                <h1>Send Ether or Token</h1>
                 <form onSubmit={handleSubmit(this.generateTransaction)}>
                     <Field name="toAddress" label="To Address" component={this.renderTextFieldComponent}/>
                     <Field name="amount" label="Amount" component={this.renderTextFieldComponent}/>

@@ -1,0 +1,8 @@
+{
+    "tokens": [
+        { "symbol": "TRX", "address": "0xf230b790E05390FC8295F4d3F60332c93BEd42e2" },
+        { "symbol": "OMG", "address": "0xd26114cd6EE289AccF82350c8d8487fedB8A0C07" },
+        { "symbol": "VEN", "address": "0xD850942eF8811f2A866692A623011bDE52a462C1" },
+        { "symbol": "ZRX", "address": "0xE41d2489571d322189246DaFA5ebDe1F4699F498" }
+    ]
+}

@@ -19,7 +19,6 @@ export function unlockAccountWithPrivateKey(privateKey){
 
         web3.eth.getAccounts()
         .then(accounts => {
-            console.log(accounts);
             dispatch({
                 type: ACCOUNTS_LOADED,
                 accounts
