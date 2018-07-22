@@ -3,6 +3,8 @@ import _ from 'underscore';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
 import MyModal from '../components/MyModal';
+import { transferEther } from '../actions/transactionActions';
+import swal from 'sweetalert';
 
 class NewTransaction extends Component {
 
@@ -77,15 +79,29 @@ class NewTransaction extends Component {
     }
 
     sendTransaction = () => {
+        const values = this.state.formValues;
+
+        const success = (tx) => {
+            swal("Transaction sent", JSON.stringify(tx), "success")
+        }
+
+        const error = (err) => {
+            swal("Transaction error", JSON.stringify(err), "error")
+        }
+
         if(this.state.formValues.currency == 'ETH'){
-            this.props.web3.sendTransaction({ 
-                to: this.state.formValues.toAddress, 
-                from: this.props.accounts.selected, 
-                value: this.props.web3.eth.utils.toWei(this.state.formValues.amount.toString())
-            })
+            this.props.transferEther(this.props.web3, 
+                values.toAddress, 
+                this.props.accounts.selected, 
+                values.amount, 
+                values.gasLimit,
+                success,
+                error);
         }else{
 
         }
+
+        this.setState({ isConfirmModalVisible: false });
     }
 }
 
@@ -119,4 +135,4 @@ function mapStateToProps({web3, accounts, tokens }){
 export default reduxForm({
     form: 'NewTransaction',
     validate
-})(connect(mapStateToProps)(NewTransaction));
+})(connect(mapStateToProps, { transferEther })(NewTransaction));

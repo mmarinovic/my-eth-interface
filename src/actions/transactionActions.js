@@ -1,0 +1,20 @@
+const TRANSFER_ETHER = 'TRANSFER_ETHER';
+const TRANSFER_TOKEN = 'TRANSFER_TOKEN';
+
+export function transferEther(web3, toAddress, fromAddress, amount, gasLimit, success, error){
+    const request = web3.eth.sendTransaction({ 
+        to: toAddress, 
+        from: fromAddress, 
+        value: web3.utils.toWei(amount.toString()),
+        gasLimit
+    }).then(success, error);
+
+    return {
+        type: TRANSFER_ETHER,
+        payload: request
+    }
+}
+
+export function transferToken(){
+
+}
