@@ -2,12 +2,19 @@ import React, { Component } from 'react';
 import _ from 'underscore';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
+import MyModal from '../components/MyModal';
 
 class NewTransaction extends Component {
+
+    state = {
+        isConfirmModalVisible: false,
+        formValues: {}
+    }
 
     componentDidMount(){
         this.props.initialize({ gasLimit: '21000', currency: 'ETH' });
     }
+
     renderTextFieldComponent = (field) => {
         return (
             <div className="form-group">
@@ -20,12 +27,40 @@ class NewTransaction extends Component {
         )
     }
 
+    renderConfirmTransactionModal = () => {
+
+        const modalBody = (
+            <div>
+                <div>From: {this.props.accounts.selected}</div>
+                <div>To: {this.state.formValues.toAddress}</div>
+                <div>Amount: {this.state.formValues.amount}</div>
+                <div>Currency: {this.state.formValues.currency}</div>
+            </div>
+        )
+
+        const modalFooter = (
+            <div>
+                <button className="btn btn-danger" onClick={() => this.setState({ isConfirmModalVisible: false })}>Cancel</button>
+                <button className="btn btn-primary" onClick={this.sendTransaction}>Confirm</button>
+            </div>
+        );
+
+        return (
+            <MyModal 
+                show={this.state.isConfirmModalVisible}
+                title='Confirm transaction'
+                body={modalBody}
+                footer={modalFooter}
+            />
+        )
+    }
+
     render(){
         const { handleSubmit } = this.props
         return (
             <div>
                 <h1>Send Ether or Token</h1>
-                <form onSubmit={handleSubmit(this.generateTransaction)}>
+                <form onSubmit={handleSubmit((formValues) => this.setState({ isConfirmModalVisible: true, formValues }))}>
                     <Field name="toAddress" label="To Address" component={this.renderTextFieldComponent}/>
                     <Field name="amount" label="Amount" component={this.renderTextFieldComponent}/>
                     <Field name="currency" className="form-control" component="select">
@@ -36,12 +71,21 @@ class NewTransaction extends Component {
                     <Field name="gasLimit" label="Gas Limit" component={this.renderTextFieldComponent}/>
                     <button type="submit" className="btn btn-primary">Generate transaction</button>
                 </form>
+                {this.renderConfirmTransactionModal()}
             </div>
         );
     }
 
-    generateTransaction = (values) => {
-        console.log(values);
+    sendTransaction = () => {
+        if(this.state.formValues.currency == 'ETH'){
+            this.props.web3.sendTransaction({ 
+                to: this.state.formValues.toAddress, 
+                from: this.props.accounts.selected, 
+                value: this.props.web3.eth.utils.toWei(this.state.formValues.amount.toString())
+            })
+        }else{
+
+        }
     }
 }
 
