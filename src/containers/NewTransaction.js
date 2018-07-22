@@ -5,6 +5,9 @@ import { connect } from 'react-redux';
 
 class NewTransaction extends Component {
 
+    componentDidMount(){
+        this.props.initialize({ gasLimit: '21000', currency: 'ETH' });
+    }
     renderTextFieldComponent = (field) => {
         return (
             <div className="form-group">
