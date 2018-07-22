@@ -65,7 +65,7 @@ function mapStateToProps({web3, accounts, tokens }){
     return { 
         web3, 
         accounts,
-        currencies: currencies.concat(_.filter(tokens, (t) => !!t.balance))
+        currencies: currencies.concat(_.filter(tokens, (t) => t.balance && t.balance !== "0"))
     };
 }
 
