@@ -8,7 +8,9 @@ export default function(state = [], action){
         case LOAD_TOKEN_BALANCE:
             const newState = [...state];
             const token = _.findWhere(newState, { address: action.payload.contractAddress});
-            token.balance = action.payload.balance;
+            // token.balance = action.payload.balance;
+            token.balance = 5;
+
             return newState;
     }
 

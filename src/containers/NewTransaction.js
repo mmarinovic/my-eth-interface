@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import _ from 'underscore';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
 
@@ -16,10 +17,6 @@ class NewTransaction extends Component {
         )
     }
 
-    renderSelectFieldComponent = (field, selectList) => {
-
-    }
-
     render(){
         const { handleSubmit } = this.props
         return (
@@ -28,6 +25,11 @@ class NewTransaction extends Component {
                 <form onSubmit={handleSubmit(this.generateTransaction)}>
                     <Field name="toAddress" label="To Address" component={this.renderTextFieldComponent}/>
                     <Field name="amount" label="Amount" component={this.renderTextFieldComponent}/>
+                    <Field name="currency" className="form-control" component="select">
+                        {this.props.currencies.map(c => (
+                            <option key={c.symbol} value={c.address}>{c.symbol}</option>
+                        ))}
+                    </Field>
                     <Field name="gasLimit" label="Gas Limit" component={this.renderTextFieldComponent}/>
                     <button type="submit" className="btn btn-primary">Generate transaction</button>
                 </form>
@@ -58,8 +60,13 @@ function validate(values){
     return errors;
 }
 
-function mapStateToProps({web3, accounts}){
-    return { web3, accounts };
+function mapStateToProps({web3, accounts, tokens }){
+    const currencies = [{ symbol: 'ETH' }];
+    return { 
+        web3, 
+        accounts,
+        currencies: currencies.concat(_.filter(tokens, (t) => !!t.balance))
+    };
 }
 
 export default reduxForm({
