@@ -1,3 +1,5 @@
+import { Erc20Abi } from '../Erc20Abi';
+
 const TRANSFER_ETHER = 'TRANSFER_ETHER';
 const TRANSFER_TOKEN = 'TRANSFER_TOKEN';
 
@@ -15,6 +17,15 @@ export function transferEther(web3, toAddress, fromAddress, amount, gasLimit, su
     }
 }
 
-export function transferToken(){
+export function transferTokens(web3, contractAddress, toAddress, fromAddress, amount, gasLimit, success, error){
+    const tokenContract = new web3.eth.Contract(Erc20Abi, contractAddress);
+    const request = tokenContract.methods.transfer(toAddress, amount).send({
+        from: fromAddress,
+        gasLimit
+    }).then(success, error);
 
+    return {
+        type: TRANSFER_TOKEN,
+        payload: request
+    }
 }

@@ -98,7 +98,14 @@ class NewTransaction extends Component {
                 success,
                 error);
         }else{
-
+            this.props.transferTokens(this.props.web3,
+                values.currency, 
+                values.toAddress, 
+                this.props.accounts.selected, 
+                values.amount, 
+                values.gasLimit,
+                success,
+                error);
         }
 
         this.setState({ isConfirmModalVisible: false });
