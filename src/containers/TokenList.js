@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { loadTokens, loadTokenBalance } from '../actions/tokenActions';
+import NewToken from './NewToken';
 
 class TokenList extends Component {
+
+    state = {
+        isAddTokenModalVisible: false
+    }
 
     componentDidMount(){
         this.props.loadTokens();
@@ -12,6 +17,7 @@ class TokenList extends Component {
         return (
             <div>
                 <h3>Token list</h3>
+                <NewToken />
                 <ul className="list-group">
                     {this.props.tokens.map(token => (
                         <li className="list-group-item" key={token.address}>

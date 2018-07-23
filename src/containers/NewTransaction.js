@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import _ from 'underscore';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
-import MyModal from '../components/MyModal';
+import { MyModal } from '../components/MyModal';
 import { transferEther } from '../actions/transactionActions';
 import swal from 'sweetalert';
 

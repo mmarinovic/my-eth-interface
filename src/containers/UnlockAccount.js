@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import swal from 'sweetalert';
 import { connect } from 'react-redux';
 import { unlockAccountWithPrivateKey, unlockAccountWithMetaMask, selectAccount } from '../actions/accountActions';
-import MyModal from '../components/MyModal';
+import { MyModal } from '../components/MyModal';
 
 class UnlockAccount extends Component {
 

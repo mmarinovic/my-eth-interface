@@ -3,6 +3,7 @@ import { Erc20Abi } from '../Erc20Abi';
 
 export const LOAD_TOKENS = 'LOAD_TOKENS';
 export const LOAD_TOKEN_BALANCE = 'LOAD_TOKEN_BALANCE';
+export const ADD_TOKEN = 'ADD_TOKEN';
 
 export function loadTokens(){
     const request = axios.get('/main.json');
@@ -24,5 +25,12 @@ export function loadTokenBalance(web3, selectedAccount, contractAddress){
     return {
         type: LOAD_TOKEN_BALANCE,
         payload: request
+    }
+}
+
+export function addToken(symbol, contractAddress){
+    return {
+        type: ADD_TOKEN,
+        token: { symbol, contractAddress }
     }
 }
