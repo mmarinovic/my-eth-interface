@@ -1,5 +1,6 @@
 import _ from 'underscore';
-import { LOAD_TOKENS, LOAD_TOKEN_BALANCE, ADD_TOKEN } from '../actions/tokenActions';
+import { LOAD_TOKENS, LOAD_TOKEN_BALANCE, ADD_TOKEN,  } from '../actions/tokenActions';
+import { TRANSFER_TOKEN } from '../actions/transactionActions';
 
 export default function(state = [], action){
     switch(action.type){
@@ -9,6 +10,8 @@ export default function(state = [], action){
             return _loadTokenBalance(state, action);
         case ADD_TOKEN:
             return _addToken(state, action);
+        case TRANSFER_TOKEN: 
+            return _transferToken(state, action);
     }
 
     return state;
@@ -31,4 +34,9 @@ function _addToken(state, action){
         newState.push({ symbol: action.token.symbol, address: action.token.contractAddress });
     }
     return newState;
+}
+
+function _transferToken(state, action){
+    console.log(action.payload);
+    return state;
 }

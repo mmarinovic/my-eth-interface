@@ -1,7 +1,7 @@
 import { Erc20Abi } from '../Erc20Abi';
 
-const TRANSFER_ETHER = 'TRANSFER_ETHER';
-const TRANSFER_TOKEN = 'TRANSFER_TOKEN';
+export const TRANSFER_ETHER = 'TRANSFER_ETHER';
+export const TRANSFER_TOKEN = 'TRANSFER_TOKEN';
 
 export function transferEther(web3, toAddress, fromAddress, amount, gasLimit, success, error){
     const request = web3.eth.sendTransaction({ 
@@ -9,7 +9,13 @@ export function transferEther(web3, toAddress, fromAddress, amount, gasLimit, su
         from: fromAddress, 
         value: web3.utils.toWei(amount.toString()),
         gasLimit
-    }).then(success, error);
+    }).then((data) => {
+        success(data);
+        return data;
+    }, (err) => {
+        error(err);
+        return err;
+    });
 
     return {
         type: TRANSFER_ETHER,
@@ -22,7 +28,13 @@ export function transferTokens(web3, contractAddress, toAddress, fromAddress, am
     const request = tokenContract.methods.transfer(toAddress, amount).send({
         from: fromAddress,
         gas: gasLimit
-    }).then(success, error);
+    }).then((data) => {
+        success(data);
+        return data;
+    }, (err) => {
+        error(err);
+        return err;
+    });
 
     return {
         type: TRANSFER_TOKEN,
