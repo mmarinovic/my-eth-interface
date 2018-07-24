@@ -14,7 +14,7 @@ class NewTransaction extends Component {
     }
 
     componentDidMount(){
-        this.props.initialize({ gasLimit: '40000', currency: 'ETH' });
+        this.props.initialize({ gasLimit: '100000', currency: 'ETH' });
     }
 
     renderTextFieldComponent = (field) => {
