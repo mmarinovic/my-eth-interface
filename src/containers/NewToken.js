@@ -10,18 +10,23 @@ class NewToken extends Component {
         show: false
     }
 
+    renderInput = (field) => {
+        return (
+            <div className="form-group">
+                <label>{field.label}</label>
+                <input type="text" className="form-control" {...field.input} />
+                <div className="text-danger">
+                    {field.meta.touched ? field.meta.error : ''}
+                </div>
+            </div>
+        )
+    }
     render(){
         const { handleSubmit } = this.props;
         const modalBody = (
             <div>
-                <div className="form-group">
-                    <label>Symbol</label>
-                    <Field className="form-control" name="symbol" component="input" />
-                </div>
-                <div className="form-group">
-                    <label>Contract address</label>
-                    <Field className="form-control" name="contractAddress" component="input" />
-                </div>
+                <Field name="symbol" label="Symbol" component={this.renderInput} />
+                <Field name="contractAddress" label="Contract address" component={this.renderInput} />
             </div>
         );
 
@@ -62,7 +67,7 @@ function validate(values){
     if(!values.contractAddress){
         errors.contractAddress = "Contract Address is required"
     }
-
+    
     return errors;
 }
 
