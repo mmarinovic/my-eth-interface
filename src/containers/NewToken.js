@@ -59,7 +59,7 @@ function validate(values){
         errors.symbol = "Symbol is required"
     }
 
-    if(!values.symbol){
+    if(!values.contractAddress){
         errors.contractAddress = "Contract Address is required"
     }
 
