@@ -14,7 +14,7 @@ class NewTransaction extends Component {
     }
 
     componentDidMount(){
-        this.props.initialize({ gasLimit: '100000', currency: 'ETH' });
+        this.props.initialize({ gasLimit: '4000', currency: 'ETH' });
     }
 
     renderTextFieldComponent = (field) => {
@@ -61,7 +61,6 @@ class NewTransaction extends Component {
         const { handleSubmit } = this.props
         return (
             <div>
-                <h1>Send Ether or Token</h1>
                 <form onSubmit={handleSubmit((formValues) => this.setState({ isConfirmModalVisible: true, formValues }))}>
                     <Field name="toAddress" label="To Address" component={this.renderTextFieldComponent}/>
                     <Field name="amount" label="Amount" component={this.renderTextFieldComponent}/>

@@ -16,15 +16,15 @@ class TokenList extends Component {
     render(){
         return (
             <div>
-                <h3>Token list</h3>
                 <NewToken />
+                <br />
                 <ul className="list-group">
                     {this.props.tokens.map(token => (
                         <li className="list-group-item" key={token.address}>
                             {token.symbol} 
                             {token.balance >= 0 
                                 ? <span> {token.balance}</span>
-                                : <button className="btn btn-link" onClick={() => this.loadBalance(token)}>Click to load</button>
+                                : <button className="btn btn-link" onClick={() => this.loadBalance(token)}>Click to load balance</button>
                             }
                         </li>
                     ))}

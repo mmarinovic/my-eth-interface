@@ -11,20 +11,20 @@ class App extends Component {
   render() {
     const unlockAccountPart = <UnlockAccount />;
     const interfacePart = (<div>
-      <div className="col-md-5">
+      <div className="col-md-6">
+        <h3>Send Ether or Token</h3>
         <NewTransaction/>
       </div>
-      <div className="col-md-2">
+      <div className="col-md-6">
+        <h3>Account info</h3>
         <AccountInfo />
+        <br />
         <TokenList />
       </div>
     </div>);
 
     return (
       <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">My Ether Interface</h1>
-        </header>
         {this.props.web3 && this.props.accounts && this.props.accounts.selected
           ? interfacePart
           : unlockAccountPart

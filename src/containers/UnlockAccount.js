@@ -14,11 +14,13 @@ class UnlockAccount extends Component {
     render(){
         if(this.props.accounts.all){
             return (
-                <div>
+                <div className="text-center">
                     <h3>Select unlocked account</h3>
-                    <ul className="list-group col-md-3">
+                    <ul className="list-group">
                         {this.props.accounts.all.map(address => (
-                            <li className="list-group-item" key={address} onClick={() => this.selectAccount(address)}>{address}</li>
+                            <li className="list-group-item" key={address}>
+                                <button className="btn btn-link" onClick={() => this.selectAccount(address)}>{address}</button>
+                            </li>
                         ))}
                     </ul>
                 </div>
@@ -26,7 +28,7 @@ class UnlockAccount extends Component {
         }
 
         return (
-            <div>
+            <div className="text-center">
                 <h3>Unlock account to get started</h3>
 
                 <button className="btn btn-primary" onClick={() => this.setState({ isPrivateKeyModalVisible: true })}>Private key</button>
