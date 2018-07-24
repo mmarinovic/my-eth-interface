@@ -21,7 +21,7 @@ export function transferTokens(web3, contractAddress, toAddress, fromAddress, am
     const tokenContract = new web3.eth.Contract(Erc20Abi, contractAddress);
     const request = tokenContract.methods.transfer(toAddress, amount).send({
         from: fromAddress,
-        gasLimit
+        gas: gasLimit
     }).then(success, error);
 
     return {

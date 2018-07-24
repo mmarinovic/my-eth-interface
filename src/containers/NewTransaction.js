@@ -3,7 +3,7 @@ import _ from 'underscore';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
 import { MyModal } from '../components/MyModal';
-import { transferEther } from '../actions/transactionActions';
+import { transferEther, transferTokens } from '../actions/transactionActions';
 import swal from 'sweetalert';
 
 class NewTransaction extends Component {
@@ -14,7 +14,7 @@ class NewTransaction extends Component {
     }
 
     componentDidMount(){
-        this.props.initialize({ gasLimit: '21000', currency: 'ETH' });
+        this.props.initialize({ gasLimit: '40000', currency: 'ETH' });
     }
 
     renderTextFieldComponent = (field) => {
@@ -142,4 +142,4 @@ function mapStateToProps({web3, accounts, tokens }){
 export default reduxForm({
     form: 'NewTransaction',
     validate
-})(connect(mapStateToProps, { transferEther })(NewTransaction));
+})(connect(mapStateToProps, { transferEther, transferTokens })(NewTransaction));
